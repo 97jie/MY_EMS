@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.HtDao">
+ 	<insert id="pubHt" parameterType="ems.entity.HwTeacher">
+ 		insert into ems_hw_teacher(bc_idx,t_no,ht_name,
+ 			ht_path,ht_pub_time,ht_over_time,ht_weight,ht_bz_info,file_name) 
+ 		values(#{bc_idx},#{t_no},#{ht_name},#{ht_path},#{ht_pub_time},
+ 				#{ht_over_time},#{ht_weight},#{ht_bz_info},#{file_name})
+ 	</insert>
+ 	
+ 	<select id="getAllHt" resultType="ems.entity.HwTeacher">
+ 		select * from ems_hw_teacher
+ 		<where>
+ 			bc_idx=#{param1}
+ 		</where>
+ 	</select>
+ 	
+ 	<update id="updateWeight">
+ 		update ems_hw_teacher 
+ 		<set>
+ 			ht_weight=#{param2}
+ 		</set>
+ 		<where>
+ 			ht_idx=#{param1}
+ 		</where>
+ 	</update>
+ 	
+ 	<select id="queryByIdx" resultType="ems.entity.HwTeacher">
+ 		select * from  ems_hw_teacher
+ 		<where>
+ 			ht_idx=#{param1}
+ 		</where>
+ 	</select>
+  </mapper>

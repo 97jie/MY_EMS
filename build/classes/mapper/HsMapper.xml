@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.HsDao">
+  	<select id="queryByhtIdx" resultType="ems.entity.HwStudent">
+  		select * from ems_hw_student
+  		<where>
+  			1=1
+  			<if test="param2!=null">
+  			 	and s_no=#{param2}
+  			</if>
+  			<if test="param1!=null">
+  				and 
+  				ht_idx=#{param1}
+  			</if>
+  		</where>
+  	</select>
+  	
+  	<insert id="pubHs" parameterType="ems.entity.HwStudent">
+  		insert into ems_hw_student(s_no,ht_idx,hs_name,
+  			hs_path,hs_up_time,hs_file_name) 
+  		values(#{s_no},#{ht_idx},#{hs_name},#{hs_path},#{hs_up_time},#{hs_file_name})
+  	</insert>
+  	
+  	<update id="updateScore"> 
+  		update ems_hw_student 
+ 		<set>
+ 			hs_score=#{param2}
+ 		</set>
+ 		<where>
+ 			hs_idx=#{param1}
+ 		</where>
+  	</update>
+  </mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="ems.dao.CourseDao">
+ 	 <select id="getAll" resultType="ems.entity.Course">
+ 	 	select c.*,aca.aca_name as aca_name from ems_course c
+ 	 	left join ems_academic aca
+ 	 	on c.aca_idx=aca.aca_idx
+ 	 </select>
+ 	 
+ 	<insert id="addCourse" parameterType="ems.entity.Course">
+ 		insert into ems_course(c_name,aca_idx,c_info)
+ 		values(#{c_name},#{aca_idx},#{c_info})
+ 	</insert>
+ 	
+ 	<delete id="benchDel">
+ 		delete from ems_course
+ 		<where>
+ 			c_idx in
+ 		</where>
+ 		<foreach collection="array" close=")" open="(" item="c" separator=",">
+ 			#{c}
+ 		</foreach>
+ 	</delete>
+ 	
+ 	<select id="search" parameterType="java.lang.String" resultType="ems.entity.Course">
+		 select c.*,aca.aca_name as aca_name 
+		 from ems_course c 
+		 left join ems_academic aca 
+		 on c.aca_idx=aca.aca_idx
+		<where>
+			c.c_name like '%${c}%' 
+			<if test="c!=null">or c.c_idx=#{c}</if>
+		</where>		 
+ 	</select>
+</mapper>

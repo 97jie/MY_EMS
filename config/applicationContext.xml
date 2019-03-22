@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 开启注解扫描，不扫描controller -->
+	<context:component-scan base-package="ems.*" >
+		<!--  <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+	</context:component-scan>
+	
+	<!-- 设置数据库配置的文件路径 -->
+	<context:property-placeholder location="classpath:dbconfig.properties"/>
+	
+	<!-- 配置数据库数据源信息，采用c3p0数据源 -->
+	<bean id="DataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	<!-- 配置事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="DataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+		
+	<!-- 配置mybatis配置文件信息 以及映射文件位置-->
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="DataSource"></property>
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml"></property>
+		<property name="mapperLocations"
+			value="classpath:/mapper/*.xml"></property>
+	</bean>
+	
+	<!-- 配置mybatismapper 文件扫描的dao路径 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactoryBean"></property>
+		<property name="basePackage" value="ems.dao"></property>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"></property>	
+		<property name="defaultEncoding" value="utf-8"></property>
+	</bean>
+</beans>

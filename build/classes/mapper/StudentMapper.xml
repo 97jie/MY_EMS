@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.StudentDao">
+  	
+  	<select id="queryStudent" resultType="ems.entity.Student" parameterType="ems.entity.Student">
+  		SELECT s.*,aca.aca_name as  aca_name,c.`B_NAME` as b_name
+  		FROM `ems_student` s
+		LEFT JOIN 
+		ems_academic aca ON s.aca_idx=aca.aca_idx
+		LEFT JOIN `ems_class` c ON s.`B_IDX`=c.`B_IDX`
+  		<where>
+  			s_no=#{s_no} and s_pwd=#{s_pwd}
+  		</where> 
+  	</select>
+  	
+  	<select id="getAllStus" resultType="ems.entity.Student">
+  		SELECT s.*,aca.aca_name as  aca_name,c.`B_NAME` as b_name
+  		FROM `ems_student` s
+		LEFT JOIN 
+		ems_academic aca ON s.aca_idx=aca.aca_idx
+		LEFT JOIN `ems_class` c ON s.`B_IDX`=c.`B_IDX`
+  	</select>
+  	  
+  	<insert id="addStu" parameterType="ems.entity.Student">
+  		insert into ems_student(s_no,s_pwd,s_name,s_gender,s_id_card,s_phone_num,s_email,
+  								b_idx,s_birth,aca_idx,s_grade)
+			values(#{s_no},#{s_pwd},#{s_name},#{s_gender},#{s_id_card},#{s_phone_num},#{s_email}
+			,#{b_idx},#{s_birth},#{aca_idx},#{s_grade})
+  	</insert>
+  	
+  	<select id="search" parameterType="java.lang.String" resultType="ems.entity.Student">
+			SELECT s.*,aca.aca_name as  aca_name,c.`B_NAME` as b_name
+  		FROM `ems_student` s
+		LEFT JOIN 
+		ems_academic aca ON s.aca_idx=aca.aca_idx
+		LEFT JOIN `ems_class` c ON s.`B_IDX`=c.`B_IDX`
+		<where>
+			s_name like '%${stu}%' 
+			<if test="stu!=null">or s_no=#{stu}</if>
+		</where>
+	</select>
+	
+	<delete id="benchDel">
+		delete from ems_student
+		<where>
+			s_no in
+			<foreach collection="array" separator="," open="(" close=")" item="no">
+				#{no}
+			</foreach>
+		</where>
+	</delete> 
+	
+	<select id="moSearch" parameterType="ems.entity.Student" resultType="ems.entity.Student">
+		SELECT s.*,aca.aca_name as  aca_name,c.`B_NAME` as b_name
+  		FROM `ems_student` s
+		LEFT JOIN 
+		ems_academic aca ON s.aca_idx=aca.aca_idx
+		LEFT JOIN `ems_class` c ON s.`B_IDX`=c.`B_IDX`
+		<where>
+			1=1
+			<if test="aca_idx!=null">
+				and s.aca_idx=#{aca_idx} 
+			</if>
+			<if test="s_grade!=null">
+				and s_grade=#{s_grade} 
+			</if>
+			<if test="b_idx!=null">
+				and s.b_idx=#{b_idx} 
+			</if>
+		</where>
+	</select>
+</mapper>

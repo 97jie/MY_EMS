@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #dff0d8;
+        }
+        label{
+        	font-weight: bold;
+        	color: #D56F2B;
+        }
+        th{
+        	background-color:#C1CDCD;
+        	text-align: center;
+			color: #827788;       	
+        }
+        td{
+        	text-align: center;
+        }
+        h4{
+        	color: #916F83;
+        }
+        a:link{
+       		 text-decoration: none; font-family: 微软雅黑;
+        }
+         a:hover{text-decoration: underline; color:#09f; }
+        p{
+       		color:#5E6BA2;
+       }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.TeacherDao">
+  	
+  	<select id="queryTea" parameterType="ems.entity.Teacher" resultType="ems.entity.Teacher">
+  		SELECT t.*
+  		,aca.aca_name as aca_name
+  		FROM ems_teacher t
+		LEFT JOIN 
+		ems_academic aca ON t.aca_idx=aca.aca_idx 
+  		<where>
+  			t_no=#{t_no}
+  			and t_pwd=#{t_pwd}
+  		</where>
+  	</select>
+  	
+  	<select id="getAll" resultType="ems.entity.Teacher">
+  		SELECT t.*
+  		,aca.aca_name as aca_name
+  		FROM ems_teacher t
+		LEFT JOIN 
+		ems_academic aca ON t.aca_idx=aca.aca_idx 
+  	</select>
+  	
+  	<insert id="addTea" parameterType="ems.entity.Teacher">
+		insert into ems_teacher(t_no,t_pwd,t_name,t_email,t_office,t_info,t_gender,aca_idx)
+			values(#{t_no},#{t_pwd},#{t_name},#{t_email},#{t_office},#{t_info},#{t_gender}
+			,#{aca_idx})
+	</insert> 
+	
+	<delete id="benchDel">
+		delete from ems_teacher
+		<where>
+			t_no in
+			<foreach collection="array" separator="," open="(" close=")" item="no">
+				#{no}
+			</foreach>
+		</where>
+	</delete> 
+	
+	<select id="searchByName" parameterType="java.lang.String" resultType="ems.entity.Teacher">
+		SELECT t.*
+  		,aca.aca_name as aca_name
+  		FROM ems_teacher t
+		LEFT JOIN 
+		ems_academic aca ON t.aca_idx=aca.aca_idx 
+		<where>
+			t_name like '%${t_name}%' 
+			<if test="t_name!=null">or t_no=#{t_name}</if>
+		</where>
+	</select>
+</mapper>
