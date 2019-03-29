@@ -19,6 +19,14 @@
     </style>
 </head>
 <body>
+<script type="text/javascript">
+    var ad_session='<%=session.getAttribute("admin")%>';
+    /* alert(ad_session.split("=")[1].split(",")[0]) */
+	if(ad_session=='null'){
+		alert("请先登录！");
+		window.location.href="adminLogin.jsp";
+	} 
+</script>
 <div class="container-fluid" style="height: 75%">
     <div class="row-fluid">
         <div class="col-md-12" style="margin-top: 30px">
@@ -40,6 +48,9 @@
 	            </li>
 	            <li class="">
 	                <a href="/MY_EMS/jsp/courseManage.jsp">课程管理</a>
+	            </li>
+	            <li class="">
+	                <a href="/MY_EMS/jsp/courseManage.jsp">班级课程管理</a>
 	            </li>
                 <li class="dropdown pull-right">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>

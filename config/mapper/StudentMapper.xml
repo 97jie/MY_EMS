@@ -71,4 +71,10 @@
 			</if>
 		</where>
 	</select>
+	<select id="queryByBan" resultType="ems.entity.Student">
+		select s.* from ems_student s
+		<where>
+			s.b_idx=#{param1}
+		</where>
+	</select>
 </mapper>

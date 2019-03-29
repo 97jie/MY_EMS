@@ -21,5 +21,7 @@ public interface StudentDao {
 	public List<Student> search(@Param(value="stu") String stu);
 
 	public List<Student> moSearch(Student student);
+
+	public List<Student> queryByBan(Integer b_idx);
 		
 }

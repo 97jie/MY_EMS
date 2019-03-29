@@ -9,7 +9,7 @@ public class HwTeacher {
 	private String ht_name;
 	private String ht_pub_time;
 	private String ht_over_time;
-	private String ht_weight;
+	private double ht_weight;
 	private String ht_bz_info;
 	private String ht_zt;
 	private String extra_1;
@@ -81,10 +81,10 @@ public class HwTeacher {
 	public void setHt_over_time(String ht_over_time) {
 		this.ht_over_time = ht_over_time;
 	}
-	public String getHt_weight() {
+	public double getHt_weight() {
 		return ht_weight;
 	}
-	public void setHt_weight(String ht_weight) {
+	public void setHt_weight(double ht_weight) {
 		this.ht_weight = ht_weight;
 	}
 	public String getHt_bz_info() {

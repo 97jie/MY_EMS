@@ -26,4 +26,8 @@ public class HsService {
 		hsDao.updateScore(hs_idx,hs_score);
 	}
 
+	public List<HwStudent> calStuScore(Integer bc_idx, String s_no) {
+		return hsDao.calStuScore(bc_idx,s_no);
+	}
+
 }

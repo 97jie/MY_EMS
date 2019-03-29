@@ -42,4 +42,7 @@ public class StudentService {
 		return studentDao.queryStudent(student);
 	}
 
+	public List<Student> queryByBan(Integer b_idx){
+		return studentDao.queryByBan(b_idx);
+	}
 }

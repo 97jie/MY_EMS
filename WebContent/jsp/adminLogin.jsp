@@ -88,7 +88,6 @@
            verify(inputPassword);
            var data_admin=$("#admin_input").serialize();
            data_admin = decodeURIComponent(data_admin,true); 
-           alert(data_admin)
            $.ajax({
         	 url:"/MY_EMS/admin/adminLogin.do",
         	 type:"post",

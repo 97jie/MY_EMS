@@ -6,34 +6,16 @@
 <meta charset="UTF-8">
 <title>课程详情页</title>
 	 <link  rel="stylesheet" type="text/css" href="../css/bootstrap.css" >
+	 <link  rel="stylesheet" type="text/css" href="../css/myCss.css" >
      <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.js" type="text/javascript"></script>
     <script src="../js/Common.js" type="text/javascript"></script>
     <script src="../js/jquery-form.js" type="text/javascript"></script>
     <style>
-        html,body{
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: #dff0d8;
-        }
-        th{
-        	text-align: center;
-			color: #827788;       	
-        }
-        h4{
-        	color: #916F83;
-        }
-        td{
-        	text-align: center;
-        	font-style: oblique;
-        	color:#AA8855;
-        }
-        a:link{
-       		 text-decoration: none; font-family: 微软雅黑;
-        }
-         a:hover{text-decoration: underline; color:#09f; }
+         .modal-body{
+			  height:400px;
+			  overflow:scroll;
+			}
     </style>
 </head>
 <body>
@@ -94,6 +76,36 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="model_cal_score" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">学生作业分数统计</h4>
+      </div>
+      <div class="modal-body">
+      	<table class="table table-hover table-striped table-bordered">
+   			<thead>
+   				<tr>
+   					<th style="text-align: center">学号</th>
+   					<th style="text-align: center">姓名</th>
+   					<th style="text-align: center">提交次数</th>
+   					<th style="text-align: center">最高分</th>
+   					<th style="text-align: center">最低分</th>
+   					<th style="text-align: center">总评分</th>
+   				</tr>
+   			</thead>
+   			<tbody id="tbody2">
+        	</tbody>
+	    </table>
+      </div>
+      <div class="modal-footer">
+      	 <button type="submit" class="btn btn-info" id="excel_export" >导出为excel</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 	<div class="container-fluid" style="height: 75%">
     	<div class="col-md-12" style="margin-top: 20px">
@@ -125,6 +137,7 @@
 	    				 <button class="btn btn-success" id="btn_hw_pub">
 			              	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布新作业
 			            </button>
+			            <button class="btn btn-info" style="margin-left: 20px" id="cal_score">统计分数</button>
 	    			</div>
 	    		</div>
 	    		<table class="table table-hover table-striped table-bordered">
@@ -304,7 +317,41 @@
 					}
 				}); 
 			}
-			
 		});
+		
+		$("#cal_score").click(function () {
+			$.ajax({
+				url:"/MY_EMS/hs/calStuScore.do?bc_idx="+bc_idx,
+				type:"get",
+				success:function(result){
+					result=JSON.parse(result);
+					buildScoreTable(result);
+				}
+			});
+			$("#model_cal_score").modal({
+				backdrop:"static"
+			});
+		})
+		function buildScoreTable(result) {
+			$('#tbody2').empty();
+			console.log(result);
+			
+			var scores=result.extend.stuScores;
+			console.log(scores);
+			$.each(scores,function(index,item){
+				var td1=$('<td></td>').append(item.s_no);
+				var td2=$('<td></td>').append(item.s_name);
+				var td3=$('<td></td>').append(item.commit_num);
+				var td4=$('<td></td>').append(item.max_score);
+				var td5=$('<td></td>').append(item.min_score);
+				var td6=$('<td></td>').append(item.s_score);
+				$('<tr></tr>').append(td1).append(td2).append(td3).append(td4).append(td5).
+					append(td6).appendTo("#tbody2");
+			});
+		}
+		
+		  $("#excel_export").click(function () {
+			  window.location.href="/MY_EMS/hs/downloadScore.do";
+		});  
 </script>
 </html>

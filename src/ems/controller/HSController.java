@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,15 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
+import com.sun.javafx.collections.MappingChange.Map;
 
+import ems.entity.ClassCourse;
+import ems.entity.Common;
+import ems.entity.ExcelView;
 import ems.entity.HwStudent;
 import ems.entity.HwTeacher;
 import ems.entity.Msg;
+import ems.entity.MyClass;
 import ems.entity.Student;
+import ems.entity.StudentScore;
 import ems.service.BanCourseService;
 import ems.service.HsService;
 import ems.service.HtService;
@@ -44,7 +52,9 @@ public class HSController {
 	StudentService studentService;
 	@Autowired
 	BanCourseService banCourseService;
-
+	@Autowired
+	MyClassService myClassService;
+	
 	@RequestMapping("pubHs")
 	@ResponseBody
 	public Msg pubHs(HwStudent hwStudent,HttpSession session,MultipartFile file) {
@@ -136,5 +146,40 @@ public class HSController {
 		PageInfo<HwStudent> pageInfo=new PageInfo<>(list,5);
 		PageInfo<Student> pageInfo2=new PageInfo<>(list2,5);
 		return Msg.success().add("pageInfo", pageInfo).add("pageInfo2", pageInfo2);
+	}
+	
+	@RequestMapping("calStuScore.do")
+	@ResponseBody
+	public Msg calStuScore(Integer bc_idx,HttpSession httpSession) {
+		ClassCourse classCourse = banCourseService.queryBc(bc_idx);
+		MyClass ban = myClassService.getBan(classCourse.getB_idx());
+		List<Student> stus = studentService.moSearch(new Student(ban.getB_idx()+""));//得到所有选修该课程的学生
+		List<StudentScore> stuScores=new ArrayList<>();
+		List<HwTeacher> hwTeachers=htService.getAllHt(bc_idx);
+		double total_weight=Common.calTotalWeight(hwTeachers);
+		for(Student stu:stus) {
+			StudentScore studentScore=new StudentScore();
+			studentScore.setS_no(stu.getS_no());
+			studentScore.setS_name(stu.getS_name());
+			List<HwStudent> hwStudents=hsService.calStuScore(bc_idx,stu.getS_no());
+			for(HwStudent hwStudent:hwStudents) {
+				hwStudent.setHt_weight(htService.queryByIdx(hwStudent.getHt_idx()).getHt_weight());
+			}
+			if(hwStudents.size()>0) {
+				Common.calStuScore(hwStudents,studentScore,total_weight);
+			}
+			stuScores.add(studentScore);
+		}
+		httpSession.setAttribute("stuScores", stuScores);
+		return Msg.success().add("stuScores", stuScores);
+	}
+	
+	@RequestMapping("downloadScore.do")
+	public ModelAndView downloadScore(HttpSession session) {
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("studentScores", (List<StudentScore>) session.getAttribute("stuScores"));
+		map.put("name", "学生作业分数表");
+		ExcelView view=new ExcelView();
+		return new ModelAndView(view, map);
 	}
 }

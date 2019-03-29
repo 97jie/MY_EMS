@@ -121,6 +121,7 @@
 		var current_page;
 		$(function () {
 			var stu=JSON.parse(stu_session);//得到自定义的 stu对象
+			$("#input_s_no").val(stu.s_no);
 			var str_stu=stu.s_grade+"级"+stu.b_name+"-"+stu.s_name;
 			$("#dropDown_stu").text(str_stu);
 			$("#title").text("${c_name}课程作业详情页");
@@ -246,7 +247,6 @@
 		
 		$(document).on("click",".btn_upFile",function(){
 			$("#input_ht_idx").val($(this).attr("ht_idx"));
-			$("#input_s_no").val(stu.s_no);
 			$("#model_hs_upload").modal({
 				backdrop:"static"
 			});

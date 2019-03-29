@@ -32,4 +32,17 @@
  			hs_idx=#{param1}
  		</where>
   	</update>
+  	
+  	<select id="calStuScore" resultType="ems.entity.HwStudent">
+  		SELECT * FROM `ems_hw_student` hs 
+  		<where>
+  			hs.`HT_IDX` in (
+  				select ht.`HT_IDX` FROM ems_hw_teacher ht
+  				<where>
+  					ht.`BC_IDX`=#{param1}
+  				</where>
+  			) and 
+  			hs.`S_NO`=#{param2}
+  		</where>
+  	</select>
   </mapper>

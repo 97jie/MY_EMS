@@ -11,5 +11,7 @@ public interface HsDao {
 	void pubHs(HwStudent hwStudent);
 
 	void updateScore(Integer hs_idx, Integer hs_score);
+
+	List<HwStudent> calStuScore(Integer bc_idx, String s_no);
 	
 }

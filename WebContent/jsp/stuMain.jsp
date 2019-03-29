@@ -157,7 +157,7 @@
 				success:function(result){
 					result=JSON.parse(result);//用parse()函数对返回的数据进行了处理，使其转换为js对象
 					buildTable(result);		  //得到数据后构建表格
-					bulidUl();    //构建通知栏信息
+					//bulidUl();    //构建通知栏信息
 					bulidPageInfo(result);	  //构建分页信息
 					bulidPageNav(result);	   ///构建分页导航
 				}

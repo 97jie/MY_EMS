@@ -8,8 +8,9 @@ public class HwStudent {
 	private String hs_name;
 	private String hs_path;
 	private String hs_up_time;
-	private Double hs_score;
+	private double hs_score;
 	private String hs_file_name;
+	private double ht_weight;
 	
 	public String getHs_file_name() {
 		return hs_file_name;
@@ -63,6 +64,12 @@ public class HwStudent {
 	public String toString() {
 		return "HwStudent [hs_idx=" + hs_idx + ", ht_idx=" + ht_idx + ", s_no=" + s_no + ", hs_name=" + hs_name
 				+ ", hs_path=" + hs_path + ", hs_up_time=" + hs_up_time + ", hs_score=" + hs_score + "]";
+	}
+	public double getHt_weight() {
+		return ht_weight;
+	}
+	public void setHt_weight(double ht_weight) {
+		this.ht_weight = ht_weight;
 	}
 	
 }

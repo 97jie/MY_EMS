@@ -118,6 +118,9 @@
             <li class="">
                 <a href="/MY_EMS/jsp/courseManage.jsp">课程管理</a>
             </li>
+            <li class="">
+                <a href="/MY_EMS/jsp/courseManage.jsp">班级课程管理</a>
+            </li>
             <li class="dropdown pull-right">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
