@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.TrLikeDao">
+  	<select id="countNum" resultType="java.lang.Integer">
+  		select count(*) 
+  		from ems_tr_like 
+  		<where>
+  			tr_idx=#{param1} and 
+  			tr_no=#{param2}
+  		</where>
+  	</select>
+  	
+  	<insert id="insert">
+  		insert into ems_tr_like 
+  		(tr_idx,tr_no) 
+  		values(#{param1},#{param2})
+  	</insert>
+  	<delete id="delete">
+  		delete from ems_tr_like
+  		<where>
+  			tr_idx=#{param1} and 
+  			tr_no=#{param2}
+  		</where>
+  	</delete>
+  </mapper>

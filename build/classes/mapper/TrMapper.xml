@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.TrDao">
+  
+  	<select id="getAll" resultType="ems.entity.TopicReply">
+  		select * from ems_topic_reply
+  		<where>
+  			zt_idx=#{param1}
+  		</where>
+  	</select>
+  	
+  	<insert id="savaTr" parameterType="ems.entity.TopicReply">
+  		insert into ems_topic_reply 
+  		(zt_idx,tr_time,tr_content,tr_like_num,tr_no,zt_no) 
+  		values(#{zt_idx},#{tr_time},#{tr_content},#{tr_like_num},#{tr_no},#{zt_no})
+  	</insert>
+  	
+  	<update id="changeLike">
+  		update ems_topic_reply 
+  		<set>
+  			tr_like_num=tr_like_num+#{param2}
+  		</set>
+  		<where>
+  			tr_idx=#{param1}
+  		</where>
+  	</update>
+  	
+  	<select id="getTrsWithNo" resultType="ems.entity.TopicReply">
+  		select * from ems_topic_reply
+  		<where>
+  			zt_no=#{param1}
+  		</where>
+  	</select>
+  </mapper>

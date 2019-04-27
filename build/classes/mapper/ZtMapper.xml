@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ems.dao.ZtDao">
+  	<insert id="savaZt">
+  		insert into ems_zone_topic
+  		(zt_no,bc_idx,zt_content,zt_pub_time,zt_heat) 
+  		values(#{zt_no},#{bc_idx},#{zt_content},#{zt_pub_time},#{zt_heat})
+  	</insert>
+  
+  	<select id="getWithBcIdx" resultType="ems.entity.ZoneTopic">
+  		select * from ems_zone_topic 
+  		<where>
+  			BC_IDX=#{param1}
+  		</where>
+  	</select>
+  	
+  	<select id="getWithKey" resultType="ems.entity.ZoneTopic">
+  		select * from ems_zone_topic 
+  		<where>
+  			zt_idx=#{param1}
+  		</where>
+  	</select>
+  	
+  	<update id="updateHeat">
+  		update ems_zone_topic
+  		<set>
+  			zt_heat=(zt_heat+#{param2})
+  		</set>
+  		<where>
+  			zt_idx=#{param1}
+  		</where>
+  	</update>
+  </mapper>
