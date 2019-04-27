@@ -7,11 +7,23 @@
   		select * from ems_admin
   	</select>
   	
-  	<select id="verify" parameterType="ems.entity.Admin" resultType="java.lang.Long">
-  		select count(*) from ems_admin
+  	<select id="verify" parameterType="ems.entity.Admin" resultType="ems.entity.Admin">
+  		select * from ems_admin
   		<where>
   			a_no=#{a_no}
   			and a_pwd=#{a_pwd}
   		</where>
   	</select>
+  	
+  	<update id="saveA">
+  		update ems_admin
+  		<set>
+  			a_pwd=#{a_pwd},
+  			a_email=#{a_email},
+  			a_phone_num=#{a_phone_num}
+  		</set>
+  		<where>
+  			a_no=#{a_no}
+  		</where>
+  	</update>
   </mapper>

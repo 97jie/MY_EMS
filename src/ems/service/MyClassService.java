@@ -13,8 +13,10 @@ public class MyClassService {
 	@Autowired
 	MyClassDao myClassDao;
 
-	public List<MyClass> getBanJi(int aca_idx,String b_grade){
-		return myClassDao.getBanJi(aca_idx, b_grade);
+	public List<MyClass> getBanJi(String aca_idx,String b_grade){
+		if(null==aca_idx)
+			aca_idx="0";
+		return myClassDao.getBanJi(Integer.parseInt(aca_idx), b_grade);
 	}
 
 	public List<MyClass> getAll() {
@@ -40,5 +42,10 @@ public class MyClassService {
 
 	public List<MyClass> searchByName(String b_name) {
 		return myClassDao.searchByName(b_name);
+	}
+
+	public List<MyClass> getBanJiByGrade(String b_grade) {
+		// TODO Auto-generated method stub
+		return myClassDao.getBanJiByGrade(b_grade);
 	}
 }

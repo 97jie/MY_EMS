@@ -3,6 +3,7 @@ package ems.dao;
 import java.util.List;
 
 import ems.entity.HwStudent;
+import ems.entity.HwTeacher;
 
 public interface HsDao {
 
@@ -13,5 +14,7 @@ public interface HsDao {
 	void updateScore(Integer hs_idx, Integer hs_score);
 
 	List<HwStudent> calStuScore(Integer bc_idx, String s_no);
+
+	HwStudent queryByIdx(Integer hs_idx);
 	
 }

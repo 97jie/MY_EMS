@@ -54,8 +54,6 @@ public class AcademicController {
 			academicService.addAca(academic);
 			return Msg.success();
 		}
-		
-		
 	}
 	
 	@RequestMapping("checkAca.do")

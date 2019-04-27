@@ -51,4 +51,12 @@
 			<if test="t_name!=null">or t_no=#{t_name}</if>
 		</where>
 	</select>
+	
+	<select id="getTeaByAca" resultType="ems.entity.Teacher">
+		select * 
+		from ems_teacher
+		<where>
+			aca_idx=#{param1}
+		</where>
+	</select>
 </mapper>

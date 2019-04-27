@@ -7,7 +7,8 @@
   	<select id="getBanJi" resultType="ems.entity.MyClass">
   		select * from ems_class
   		<where>
-  			aca_idx=#{param1} and b_grade=#{param2}
+  			aca_idx=#{param1} 
+  			and b_grade=#{param2}
   		</where> 
   	</select>
   	
@@ -39,6 +40,9 @@
   				,aca_idx=#{aca_idx}
   			</if>
   		</set>
+  		<where>
+			b_idx=#{b_idx}
+		</where>
   	</update>
   	
   	<delete id="benchDel">
@@ -57,6 +61,13 @@
   			on b.aca_idx=aca.aca_idx
   		<where>
   			b_name like '%${b_name}%' 
+  		</where> 
+  	</select>
+  	
+  	<select id="getBanJiByGrade" resultType="ems.entity.MyClass">
+  		select * from ems_class
+  		<where>
+  			b_grade=#{param2}
   		</where> 
   	</select>
 </mapper>

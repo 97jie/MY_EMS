@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>学生主界面</title>
 	 <link  rel="stylesheet" type="text/css" href="../css/bootstrap.css" >
 	 <link  rel="stylesheet" type="text/css" href="../css/myCss.css" >
      <script src="../js/jquery.min.js" type="text/javascript"></script>
@@ -67,7 +67,7 @@
 			</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
 	<div class="container-fluid" style="height: 75%">
     	<div class="col-md-12" style="margin-top: 20px">
     		<ul class="nav nav-pills">
-    			<!-- <li><img src="../image/login.jpg" /></li> -->
+    			<li><img src="../image/stu_logo.png" />
     			<li>
     				<h3 style="color: #00CCFF;">作业管理系统-学生主页面</h3>
     			</li>
@@ -83,7 +83,7 @@
 	                <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_stu"><strong class="caret"></strong></a>
 	                <ul class="dropdown-menu">
 	                    <li>
-	                        <a href="#">个人信息</a>
+	                        <a href="/MY_EMS/jsp/stuInfo.jsp">个人信息</a>
 	                    </li>
 	                    <li>
 	                        <a href="/MY_EMS/student/login_out.do">退出登录</a>
@@ -121,11 +121,6 @@
 					</div>
 					<div class="panel-body row pre-scrollable" >
 						<ul class="list-group" id="ul_inform">
-							<li class="list-group-item">李伟(学生)回复了您<p align="right">2019-03-11 22:13:22</p></li>
-							<li class="list-group-item">王磊(学生)回复了您<p align="right">2019-03-10 19:36:22</p></li>
-							<li class="list-group-item">张帅(学生)回复了您<p align="right">2019-03-08 09:13:22</p></li>
-							<li class="list-group-item">韩梅梅(教师)回复了您<p align="right">2019-03-08 22:55:22</p></li>
-							<li class="list-group-item">邓波(学生)回复了您<p align="right">2019-03-07 12:23:22</p></li>
 						</ul>
 					</div>
 				</div>
@@ -140,14 +135,42 @@
 </body>
 <script type="text/javascript">
 		var teas;
-		$(function name() {
-			var stu=JSON.parse(stu_session);//得到自定义的 stu对象
+		var stu;
+		$(function () {
+			stu=JSON.parse(stu_session);//得到自定义的 stu对象
 			var str_stu=stu.s_grade+"级"+stu.b_name+"-"+stu.s_name;
 			//"<span class='glyphicon glyphicon-user' aria-hidden='true'></span>"
 			$("#dropDown_stu").text(str_stu);
 			
 			to_PageWithJson(1);
+			buildInform();
 		});
+		
+		function buildInform() {
+			$("#ul_inform").empty();
+			$.ajax({
+				url:"/MY_EMS/tr/getTrsWithNo.do?zt_no="+stu.s_no,
+				type:"GET",
+				success:function(result){
+					result=JSON.parse(result);
+					var trs=result.extend.list;
+					console.log(trs);
+					$.each(trs,function(index,item){
+						var $li=$('<li></li>').addClass('list-group-item');
+						var $content_a;
+						if(item.zt_idx!=null){
+							$content_a=$('<a></a>').attr('href','/MY_EMS/zt/viewTr.do?zt_idx='+item.zt_idx).attr("target","_blank");
+							$content_a.append(item.tr_name+"在课程讨论区回复了您（点击查看）");
+						}else{
+							$content_a=$('<a></a>').attr('href',"/MY_EMS/banCourse/viewWithBcIdx.do?bc_idx="+item.tr_content);
+							$content_a.append(item.tr_name+"提醒你交作业（点击查看）");
+						}
+						var $p_time=$('<p></p>').attr('align','right').text(item.tr_time);
+						$li.append($content_a).append($p_time).appendTo("#ul_inform");
+					});
+				}
+			});
+		}
 		
 		function to_PageWithJson(pn) {
 			$.ajax({

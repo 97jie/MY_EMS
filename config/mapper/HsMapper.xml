@@ -45,4 +45,11 @@
   			hs.`S_NO`=#{param2}
   		</where>
   	</select>
+  	
+  	<select id="queryByIdx" resultType="ems.entity.HwStudent">
+  		select * from ems_hw_student hs
+  		<where>
+  			hs.hs_idx=#{param1}
+  		</where>
+  	</select>
   </mapper>

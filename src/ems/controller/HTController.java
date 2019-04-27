@@ -49,6 +49,9 @@ public class HTController {
 	@RequestMapping("pubHt.do")
 	@ResponseBody
 	public Msg pubHt(HwTeacher hwTeacher,HttpSession session,MultipartFile file) {
+		if(file==null) {
+			return Msg.fail();
+		}
 		String path="";
 		if(!file.isEmpty()) {
 			String fileName=file.getOriginalFilename();

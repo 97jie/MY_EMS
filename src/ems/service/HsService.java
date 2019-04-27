@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ems.dao.HsDao;
 import ems.entity.HwStudent;
+import ems.entity.HwTeacher;
 
 @Service
 public class HsService {
@@ -30,4 +31,10 @@ public class HsService {
 		return hsDao.calStuScore(bc_idx,s_no);
 	}
 
+	public HwStudent queryByIdx(Integer hs_idx) {
+		// TODO Auto-generated method stub
+		return hsDao.queryByIdx(hs_idx);
+	}
+	
+	
 }

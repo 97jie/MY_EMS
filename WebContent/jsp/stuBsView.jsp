@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>学生课程作业详情页</title>
 	 <link  rel="stylesheet" type="text/css" href="../css/bootstrap.css" >
 	 <link  rel="stylesheet" type="text/css" href="../css/myCss.css" >
      <script src="../js/jquery.min.js" type="text/javascript"></script>
@@ -57,14 +57,15 @@
 	<div class="container-fluid" style="height: 75%">
     	<div class="col-md-12" style="margin-top: 20px">
     		<ul class="nav nav-pills">
+    			<li><img src="../image/stu_logo.png" />
     			<li>
-    				<h4 style="color: #00CCFF;" id="title"></h4>
+    				<h3 style="color: #00CCFF;" id="title"></h3>
     			</li>
     			<li class="dropdown pull-right">
 	                <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_stu"><strong class="caret"></strong></a>
 	                <ul class="dropdown-menu">
 	                    <li>
-	                        <a href="#">个人信息</a>
+	                        <a href="/MY_EMS/jsp/stuInfo.jsp">个人信息</a>
 	                    </li>
 	                    <li>
 	                        <a href="/MY_EMS/student/login_out.do">退出登录</a>
@@ -79,6 +80,10 @@
 	    		<div class="col-md-12">
 	    			<div class="col-md-6">
 	    				<h4>本课程已发布作业</h4>
+	    			</div>
+	    			<div class="col-md-3 col-md-offset-3">
+	    				 <button type="button" class="btn btn-warning" data-dismiss="modal" id="into_chat">
+        					<span class="glyphicon glyphicon-log-in"></span> 本课程讨论区</button>
 	    			</div>
 	    		</div>
 	    		<table class="table table-hover table-striped table-bordered">
@@ -258,10 +263,15 @@
 					 type : 'post',
 					 url:"/MY_EMS/hs/pubHs.do",
 					 success : function(data) { //请求成功后处理函数。
-						 $("#model_hs_upload").modal("hide");
-			               alert("作业上传成功！");
-			               to_PageWithJson(current_page);
-			            }
+						 data=JSON.parse(data);
+					 	 if(data.extend.code==200){
+							 $("#model_hs_upload").modal("hide");
+				               alert("作业上传成功！");
+				               to_PageWithJson(current_page);
+				         }else{
+					 		 alert("请选择要上传的作业文件！")
+					 	 }
+					 }
 				});
 			}
 		})
@@ -279,7 +289,10 @@
 					type:"get"
 				}); 
 			}
-			
+		});
+		
+		$("#into_chat").click(function () {
+			window.open('/MY_EMS/zt/viewZt.do?bc_idx='+bc_idx);
 		});
 </script>
 </html>

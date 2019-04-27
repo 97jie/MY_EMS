@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>课程管理</title>
     <link  rel="stylesheet" type="text/css" href="../css/bootstrap.css" >
+    <link  rel="stylesheet" type="text/css" href="../css/myCss.css" >
      <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.js" type="text/javascript"></script>
     <script src="../js/Common.js" type="text/javascript"></script>
@@ -68,6 +69,55 @@
     </div>
   </div>
 </div>
+<!-- 班级课程添加模态框 -->
+<div class="modal fade" id="model_bc_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加班级课程</h4>
+      </div>
+      <div class="modal-body">
+	       	<form class="form-horizontal" id="form_add_bc">
+	       		<input type="hidden" name="c_idx" id="add_c_idx">
+	  			<div class="form-group">
+	    			<label for="static_c_name" class="col-sm-3 control-label">课程名称：</label>
+	   				<div class="col-sm-8">
+	     				<p class="form-control-static" id="static_c_name"></p>
+	  				</div>
+	  			</div>
+	 			<div class="form-group">
+	    			<label for="add_sel_tea" class="col-sm-3 control-label" >教授教师：</label>
+	    			<div class="col-sm-8">
+	      				<select  class="form-control" id="add_sel_tea" name="t_no">
+	      				</select>
+	      				<span class="help-block"></span>
+	    			</div>
+	 			</div>
+	 			<div class="form-group">
+	    			<label for="add_b_grade" class="col-sm-3 control-label" >年级：</label>
+	    			<div class="col-sm-8">
+	      				<input type="number" class="form-control" id="add_b_grade" value="2015" name="b_grade" />
+	    			</div>
+	 			</div>
+	 			<div class="form-group">
+	    			<label for="add_sel_ban" class="col-sm-3 control-label" >课程班级：</label>
+	    			<div class="col-sm-8">
+	      				<select  class="form-control" id="add_sel_ban" name="b_idx">
+	      				</select>
+	      				<span class="help-block"></span>
+	    			</div>
+	 			</div>
+	 			
+			</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="bc_save_btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid" style="height: 75%">
     <div class="col-md-12" style="margin-top: 30px">
@@ -94,7 +144,7 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#">个人信息</a>
+                        <a href="/MY_EMS/jsp/adminInfo.jsp">个人信息</a>
                     </li>
                     <li>
                         <a href="/MY_EMS/admin/login_out.do">退出登录</a>
@@ -105,7 +155,8 @@
         <hr  width="90%" align="left" style="height:3px;margin-top: 40px;background-color: #0f0f0f" />
     </div>
     <div class="row-fluid" style="margin-bottom: 30px">
-     	<div class="col-md-8">
+    	<div class="col-md-12">
+     	<div class="col-md-3">
          	<form class="form-search" style="margin-left: 20px">
               <input id="search_c" class="input search-query glyphicon glyphicon-search" placeholder="搜索课程（输入课程号或课程名称）" type="text" style="height: 35px;width: 200px"/>
               	<!-- button 的type属性不能为submit，否则执行完ajax会刷新页面 ，大坑-->
@@ -122,40 +173,74 @@
            				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除
             </button>
          </div>
+         <div class="col-md-2 col-md-offset-5">
+         	<button class="btn btn-success" id="btn_add_bc">
+           		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加班级课程
+            </button></div>
+        </div>
     </div>
- 	<table class="table table-hover table-striped table-bordered">
-         <thead>
-          <tr>
-              <th>
-                 	<input type="checkbox" id="check_all">
-              </th>
-              <th width="300px">
-                	  课程名称
-              </th>
-              <th width="300px">
-                	  开设学院
-              </th>
-              <th width="500px">
-                  	课程基本信息
-              </th>
-              <th>
-                	  删除
-              </th>
-          </tr>
-         </thead>
-         <tbody id="tbody">
-         </tbody>
-     </table>
-     <div class="row-fluid">
-     	<!-- 分页信息 -->
-     	<div class="col-md-6" id="page_info">
-        </div> 
-     	<div class="col-md-6" id="page_nav">
-     		
+    <div class="col-md-7">
+	 	<table class="table table-hover table-striped table-bordered">
+	         <thead>
+	          <tr>
+	              <th>
+	                 	<input type="checkbox" id="check_all">
+	              </th>
+	              <th width="300px">
+	                	  课程名称
+	              </th>
+	              <th width="300px">
+	                	  开设学院
+	              </th>
+	              <th width="500px">
+	                  	课程基本信息
+	              </th>
+	              <th>
+	                	查看
+	              </th>
+	          </tr>
+	         </thead>
+	         <tbody id="tbody">
+	         </tbody>
+	     </table>
+	     <div class="row-fluid">
+	     	<!-- 分页信息 -->
+	     	<div class="col-md-6" id="page_info">
+	        </div> 
+	     	<div class="col-md-6" id="page_nav">
+	     		
+			</div>
+	     </div>
+	  </div>
+	  <div class="col-md-5">
+	  	<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title" id="panel_title">班级课程详情</h3>
+				<input type="hidden" id="view_c_idx">
+			</div>
+			<div class="panel-body row pre-scrollable" style="padding-top: 0px">
+				<table class="table table-hover table-striped table-bordered">
+					<thead>
+			          <tr>
+			              <th>
+			                	课程教师
+			              </th>
+			              <th >
+			                	  课程班级
+			              </th>
+			              <th>
+			                	删除
+			              </th>
+			          </tr>
+	         		</thead>
+	         		<tbody id="tbody_2">
+	         		</tbody>
+				</table>
+			</div>
 		</div>
-     </div>
+	  </div>
 </div>
-<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 15%">
+<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 8%">
     <div style="margin-top: 78px">
 		<h4 style="text-align: center">©2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们：6654331</h4>
 	</div>
@@ -189,13 +274,13 @@
 		$.each(cs,function(index,item){
 			var checkBoxTd=$("<td><input type='checkbox' class='check_item' /></td>");
 			
-			var delete_btn=$('<button></button>').addClass("btn btn-danger btn-sm btn_delete")
+			var delete_btn=$('<button></button>').addClass("btn btn-info btn-sm btn_view")
 			.append($("<span></span>")
-			.addClass('glyphicon glyphicon-trash')
-			.append('删除'));
-			delete_btn.attr("del_id",item.c_idx);
+			.addClass('glyphicon glyphicon-eye-open')
+			.append('查看'));
+			delete_btn.attr("view_id",item.c_idx).attr("aca_idx",item.aca_idx);
 			
-			var btn_td=$('<td></td>').append(delete_btn)
+			var btn_td=$('<td></td>').append(delete_btn);
 			var c_name=$('<td></td>').append(item.c_name);
 			var aca_name=$('<td></td>').append(item.aca_name);
 			var c_info=$('<td></td>').append(item.c_info);
@@ -318,23 +403,45 @@
 		}); 
 	});
 	
-	//单个删除
-	$(document).on("click",".btn_delete",function(){
+	//单个查看
+	$(document).on("click",".btn_view",function(){
 		var c_name=$(this).parents("tr").find("td:eq(1)").text();
-		var c_idx=$(this).attr("del_id");
-		if(confirm("确认要删除【"+c_name+"】吗？")){
-			//确认true
-			$.ajax({
-				url:"/MY_EMS/course/benchDel.do?c_idxs="+c_idx,
-				type:"get",
-				success:function(result){
-					result=JSON.parse(result);
-					alert(result.message);
-					to_PageWithJson(current_page);
-				}
-			});
-		}
+		var c_idx=$(this).attr("view_id");
+		loadPanel(c_name,c_idx);
 	});
+	function loadPanel(c_name,c_idx) {
+		$("#tbody_2").empty();
+		if(undefined==c_idx){
+			c_idx=$("#view_c_idx").val();
+		}
+		$("#view_c_idx").val(c_idx);
+		if(undefined!=c_name){
+			$("#panel_title").text(c_name+" 课程");
+		}
+		$.ajax({
+			url:"/MY_EMS/banCourse/viewBs.do?c_idx="+c_idx,
+			type:"get",
+			success:function(result){
+				result=JSON.parse(result);
+				var list3=result.extend.list3;
+				var list1=result.extend.list1;
+				$.each(result.extend.list2,function(index,item){
+					var td1=$('<td></td>').append(item.t_name);
+					var td2=$('<td></td>').append(list3[index]);
+					var delete_btn=$('<button></button>').addClass("btn btn-danger btn-sm btn_del")
+					.append($("<span></span>")
+					.addClass('glyphicon glyphicon-trash')
+					.append('删除'));
+					delete_btn.attr("del_id",list1[index].bc_idx);
+					var btn_td=$('<td></td>').append(delete_btn);
+					
+					$('<tr></tr>').append(td1).append(td2).append(btn_td)
+					.appendTo("#tbody_2");
+				});
+				
+			}
+		});
+	}
 	
 	//全选
 	$("#check_all").click(function () {
@@ -350,9 +457,13 @@
 	$("#del_all").click(function () {
 		var del_idxs="";
 		$.each($(".check_item:checked"),function(){
-			del_idxs+=$(this).parents("tr").find("td:eq(4)").find("button:eq(1)").attr("del_id")+"-";
+			del_idxs+=$(this).parents("tr").find("td:eq(4)").find("button:eq(0)").attr("view_id")+"-";
 		});
 		del_idxs=del_idxs.substring(0,del_idxs.length-1);
+		if(del_idxs.length==0){
+			alert("请选择要删除的课程");
+			return;
+		}
 		if(confirm("确认要删除选中学院吗？")){
 			$.ajax({
 				url:"/MY_EMS/course/benchDel.do?c_idxs="+del_idxs,
@@ -378,6 +489,105 @@
 				bulidPageNav(result);
 			}			
 		});
+	});
+	$("#btn_add_bc").click(function () {
+		var checked_item=$(".check_item:checked");
+		if(checked_item.length==0){
+			alert("请先勾选一条课程记录！");
+			return;
+		}else if(checked_item.length>1){
+			alert("只能勾选一条课程记录！");
+			return;
+		}else{
+			var c_idx=checked_item.parents("tr").find("td:eq(4)").find("button:eq(0)").attr("view_id");
+			var c_name=checked_item.parents("tr").find("td:eq(1)").text();
+			var aca_idx=checked_item.parents("tr").find("td:eq(4)").find("button:eq(0)").attr("aca_idx");
+			$("#form_add_bc")[0].reset();
+			$("#add_c_idx").val(c_idx);
+			$("#static_c_name").text(c_name);
+			loadTeaSel(aca_idx,"#add_sel_tea");//加载教师下拉框
+			loadClassSel("#add_b_grade","#add_sel_ban");//加载班级下拉框
+			
+			$("#model_bc_add").modal({
+				backdrop:"static"
+			});
+		}
+		
+	});
+	
+	function loadClassSel(ele2,ele3) {
+		$(ele3).empty();
+		var grade_val=$(ele2).val();
+		$.ajax({
+			url:"/MY_EMS/myClass/getBanJi.do?b_grade="+grade_val,
+			type:"get",
+			success:function(result){
+				result=JSON.parse(result);
+				var data=result.extend.data;
+				$.each(data,function(index,item){
+            		var optionEle=$("<option></option>").append(item.b_name).attr("value",item.b_idx);
+            		optionEle.appendTo(ele3);
+            	});
+			}
+		});
+	}
+	function loadTeaSel(aca_idx,ele) {
+		$(ele).empty();
+		$.ajax({
+			url:"/MY_EMS/teacher/getTeaByAca.do?aca_idx="+aca_idx,
+			type:"get",
+			success:function(result){
+				result=JSON.parse(result);
+				var data=result.extend.data;
+				$.each(data,function(index,item){
+            		var optionEle=$("<option></option>").append(item.t_name).attr("value",item.t_no);
+            		optionEle.appendTo(ele);
+            	});
+			}
+		});
+	}
+	
+	$("#bc_save_btn").click(function () {
+		var data_bc=$("#form_add_bc").serialize();
+		data_bc = decodeURIComponent(data_bc,true); //中文乱码解决办法
+		$.ajax({
+			type:"post",
+			url:"/MY_EMS/banCourse/addBc.do",
+			data:data_bc,
+			success:function(result){
+				result=JSON.parse(result);
+				if(result.code==200){
+					$("#model_bc_add").modal("hide");
+					loadPanel($("#static_c_name").text(),$("#add_c_idx").val());//刷新panel
+				}else{
+					if(undefined!=result.extend.error_map.b_idx){
+						validata_form($("#add_sel_ban"),"error",result.extend.error_map.b_idx);
+					}
+					if(undefined!=result.extend.error_map.t_no){
+						validata_form($("#add_sel_tea"),"error",result.extend.error_map.t_no);
+					}
+				}
+			}
+		}); 
+	})
+	
+	//单个删除
+	$(document).on("click",".btn_del",function(){
+		var bc_idx=$(this).attr("del_id");
+		if(confirm("确认要删除该班级课程吗？")){
+			//确认true
+			$.ajax({
+				url:"/MY_EMS/banCourse/delBc.do?bc_idx="+bc_idx,
+				type:"get",
+				success:function(result){
+					loadPanel();
+				}
+			});
+		}
+	});
+	
+	$("#add_b_grade").change(function () {
+		loadClassSel(this,"#add_sel_ban");
 	});
 </script>
 </html>

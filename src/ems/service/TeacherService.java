@@ -33,6 +33,11 @@ public class TeacherService {
 		// TODO Auto-generated method stub
 		return teacherDao.queryTea(teacher);
 	}
+
+	public List<Teacher> getTeaByAca(String aca_idx) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTeaByAca(aca_idx);
+	}
 	
 	
 }

@@ -11,6 +11,7 @@ public class Student {
 	@NotEmpty(message="学号不能为空！")
 	private String s_no;
 	@NotEmpty(message="密码不能为空！")
+	@Length(min=6,message="密码长度大于等于6位！")
 	private String s_pwd;
 	@NotEmpty(message="学生姓名不能为空！")
 	private String s_name;

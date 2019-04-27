@@ -23,4 +23,6 @@ public interface MyClassDao {
 	void benchDel(String[] idxs);
 
 	List<MyClass> searchByName(@Param(value="b_name")String b_name);
+
+	List<MyClass> getBanJiByGrade(String b_grade);
 }

@@ -77,4 +77,16 @@
 			s.b_idx=#{param1}
 		</where>
 	</select>
+	
+	<update id="saveStu" parameterType="ems.entity.Student">
+		update ems_student
+		<set>
+			s_pwd=#{s_pwd},
+  			s_email=#{s_email},
+  			s_phone_num=#{s_phone_num}
+		</set>
+		<where>
+			s_no=#{s_no}
+		</where>
+	</update>
 </mapper>

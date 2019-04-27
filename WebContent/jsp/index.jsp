@@ -45,10 +45,11 @@
 <body style="background-color: #337ab7">
 	<div class="container-fluid" style="background-color: #dff0d8">
 	    <div class="row-fluid" style="margin-top: 30px">
-            <div class="span12">
-                <h1 contenteditable="true" class="text-info" style="font-weight: bold;padding-left: 50px">作业管理系统</h1>
-            </div>
-	        <hr  width="90%" align="left" style="height:3px;margin-top: 40px;background-color: #0f0f0f" />
+            <ul class="nav nav-pills">
+	    		<li><img src="../image/index_logo.png" />
+	    		<li><h1 contenteditable="true" class="text-info" style="font-weight: bold;padding-left: 15px">作业管理系统</h1></li>
+	    	</ul>
+	        <hr  width="90%" align="left" style="height:3px;margin-top: 20px;background-color: #0f0f0f" />
 	    </div>
     <div class="row-fluid" style="margin-top: 100px">
         <div class="col-lg-6" style="padding-bottom: 50px">

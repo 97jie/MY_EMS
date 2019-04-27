@@ -95,6 +95,7 @@
 			</form>
       </div>
       <div class="modal-footer">
+      <button type="button" class="btn btn-warning" data-dismiss="modal" id="btn_notify">提醒交作业</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
       </div>
     </div>
@@ -104,8 +105,9 @@
 <div class="container-fluid" style="height: 75%">
    	<div class="col-md-12" style="margin-top: 20px">
    		<ul class="nav nav-pills">
+   			<li><img src="../image/stu_logo.png" />
    			<li>
-   				<h4 style="color: #00CCFF;" id="title">学生作业提交详情页</h4>
+   				<h3 style="color: #00CCFF;" id="title">学生作业提交详情页</h3>
    			</li>
    			<li class="dropdown pull-right">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_tea"><strong class="caret"></strong></a>
@@ -176,7 +178,7 @@
 		    </div>
 	    </div>
     </div>
-    <div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 15%">
+    <div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 10%">
 	   <div style="margin-top: 78px">
 			<h4 style="text-align: center">©2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们：6654331</h4>
 		</div>
@@ -321,9 +323,11 @@
 	
 	$(document).on("click",".stu_view",function(){
 		var a_stu;
-		if($(this).hasClass("btn")){
+		if($(this).hasClass("btn")){//点击按钮
+			$("#btn_notify").removeAttr("disabled");
 			a_stu=stus2[$(this).attr("view_id")];
 		}else{
+			$("#btn_notify").attr('disabled','disabled');
 			a_stu=stus[$(this).attr("view_id")];
 		}
 		console.log(a_stu);
@@ -374,5 +378,14 @@
 			}			
 		});
 	});
+	
+	$("#btn_notify").click(function () {
+		$.ajax({
+			url:"../tr/addInform.do",
+			data:{"tr_content":ht_idx,
+					"tr_no":tea.t_no,"zt_no":$("#static_s_no").text()}
+		});
+		alert("提醒成功！");
+	})
 </script>
 </html>

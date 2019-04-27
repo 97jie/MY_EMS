@@ -49,14 +49,11 @@
 	            <li class="">
 	                <a href="/MY_EMS/jsp/courseManage.jsp">课程管理</a>
 	            </li>
-	            <li class="">
-	                <a href="/MY_EMS/jsp/courseManage.jsp">班级课程管理</a>
-	            </li>
                 <li class="dropdown pull-right">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">个人信息</a>
+                            <a href="/MY_EMS/jsp/adminInfo.jsp">个人信息</a>
                         </li>
                         <li>
                             <a href="/MY_EMS/admin/login_out.do">退出登录</a>
@@ -74,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 25%">
+<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 12%">
    <div style="margin-top: 78px">
 		<h4 style="text-align: center">©2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们：6654331</h4>
 	</div>

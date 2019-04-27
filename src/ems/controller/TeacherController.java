@@ -21,6 +21,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 
 import ems.entity.Msg;
+import ems.entity.MyClass;
 import ems.entity.Teacher;
 import ems.service.TeacherService;
 
@@ -90,5 +91,12 @@ public class TeacherController {
 	public String login_out(HttpSession session) {
 		session.invalidate();
 		return "index";
+	}
+	
+	@RequestMapping("getTeaByAca.do")
+	@ResponseBody
+	public Msg getTeaByAca(String aca_idx) {
+		List<Teacher> list=teacherService.getTeaByAca(aca_idx);;
+		return Msg.success().add("data", list);
 	}
 }

@@ -31,4 +31,25 @@
   			bc.bc_idx=#{param1}
   		</where>
   	</select>
+  	<select id="queryByCidx" resultType="ems.entity.ClassCourse">
+  		select bc.*,c.c_name as c_name
+  		from ems_ban_course bc
+  		left join ems_course c
+  		on bc.c_idx=c.c_idx
+  		<where>
+  			bc.c_idx=#{param1}
+  		</where>
+  	</select>
+  	
+  	<insert id="addBc" parameterType="ems.entity.ClassCourse">
+  		insert into ems_ban_course(c_idx,b_idx,t_no) 
+  		values(#{c_idx},#{b_idx},#{t_no})
+  	</insert>
+  	
+  	<delete id="delBc"> 
+  		delete from ems_ban_course 
+  		<where>
+  			bc_idx=#{param1}
+  		</where>
+  	</delete>
   </mapper>

@@ -1,10 +1,14 @@
 package ems.entity;
 
+import javax.validation.constraints.NotNull;
+
 public class ClassCourse {
 
 	private Integer bc_idx;
 	private Integer c_idx;
+	@NotNull(message="班级不能为空，请先选择授课班级！")
 	private Integer b_idx;
+	@NotNull(message="授课教师不能为空，请先选择授课教师！")
 	private String t_no;
 	private Integer z_idx;
 	

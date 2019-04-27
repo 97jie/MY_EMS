@@ -23,5 +23,7 @@ public interface StudentDao {
 	public List<Student> moSearch(Student student);
 
 	public List<Student> queryByBan(Integer b_idx);
+
+	public void saveStu(Student s);
 		
 }

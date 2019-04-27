@@ -26,8 +26,12 @@ public class MyClassController {
 	@RequestMapping("getBanJi.do")
 	@ResponseBody
 	public Msg getBanJi(String aca_idx,String b_grade) {
-		int aca=Integer.parseInt(aca_idx);
-		List<MyClass> list=myClassService.getBanJi(aca, b_grade);
+		List<MyClass> list=null;
+		if(null==aca_idx) {
+			list=myClassService.getBanJiByGrade(b_grade);
+		}else{
+			list=myClassService.getBanJi(aca_idx, b_grade);
+		}
 		return Msg.success().add("data", list);
 	}
 	

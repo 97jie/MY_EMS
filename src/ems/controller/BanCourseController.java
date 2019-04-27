@@ -1,14 +1,20 @@
 package ems.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -83,5 +89,43 @@ public class BanCourseController {
 			return "teaBsView";
 		}
 		return "stuBsView";
+	}
+	
+	@RequestMapping("viewBs.do")
+	@ResponseBody
+	public Msg viewBs(Integer c_idx) {
+		List<ClassCourse> list1=banCourseService.queryByCidx(c_idx);
+		List<Teacher> list2=new ArrayList<Teacher>();
+		List<String> list3=new ArrayList<>();
+		
+		for(ClassCourse classCourse:list1) {
+			list2.addAll(teacherService.searchByName(classCourse.getT_no()));
+			MyClass mc=myClassService.getBan(classCourse.getB_idx());
+			list3.add(mc.getB_grade()+"级-"+mc.getB_name());
+		}
+		return Msg.success().add("list3",list3).add("list2", list2).add("list1", list1);
+	}
+	
+	@RequestMapping(value="addBc.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg addBc(@Valid ClassCourse bc,BindingResult result) {//表单自动分装
+		if(result.hasErrors()) {
+			Map<String, Object> map=new HashMap<>();
+			List<FieldError> fieldErrors = result.getFieldErrors();
+			for(FieldError error:fieldErrors) {
+				map.put(error.getField(),error.getDefaultMessage());
+			}
+			return Msg.fail().add("error_map", map);
+		}else {
+			banCourseService.addBc(bc);
+			return Msg.success();
+		}
+	}
+	
+	@RequestMapping("delBc.do")
+	@ResponseBody
+	public Msg delBc(String bc_idx){
+		banCourseService.delBc(bc_idx);
+		return Msg.success();
 	}
 }

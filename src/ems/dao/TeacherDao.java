@@ -18,4 +18,6 @@ public interface TeacherDao {
 	List<Teacher> searchByName(@Param(value="t_name")String t_name);
 
 	Teacher queryTea(Teacher teacher);
+
+	List<Teacher> getTeaByAca(String aca_idx);
 }

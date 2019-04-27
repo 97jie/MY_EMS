@@ -134,7 +134,7 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#">个人信息</a>
+                        <a href="/MY_EMS/jsp/adminInfo.jsp">个人信息</a>
                     </li>
                     <li>
                         <a href="/MY_EMS/admin/login_out.do">退出登录</a>
@@ -196,7 +196,7 @@
 		</div>
      </div>
 </div>
-<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 15%">
+<div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 12%">
     <div style="margin-top: 78px">
 		<h4 style="text-align: center">©2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们：6654331</h4>
 	</div>
@@ -366,7 +366,7 @@
 		var b_idx=$(this).attr("edit_id");
 		myUtils.loadAcaSel("#edit_sel_aca");
 		getClassByIdx(b_idx);
-		$("#edit_aca_idx").val(b_idx);
+		$("#edit_b_idx").val(b_idx);
 		
 		$("#model_edit").modal({
 			backdrop:"static"
@@ -389,6 +389,7 @@
 	$("#b_update_btn").click(function(){
 		var data_b=$("#form_edit_b").serialize();
 		data_b = decodeURIComponent(data_b,true); //中文乱码解决办法
+		console.log(data_b);
 		$.ajax({
 			url:"/MY_EMS/myClass/savaBan.do",
 			type:"POST",

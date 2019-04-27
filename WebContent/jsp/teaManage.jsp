@@ -135,7 +135,7 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px">管理员<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#">个人信息</a>
+                        <a href="/MY_EMS/jsp/adminInfo.jsp">个人信息</a>
                     </li>
                     <li>
                          <a href="/MY_EMS/admin/login_out.do">退出登录</a>
@@ -218,7 +218,6 @@
 </body>
 
 <script type="text/javascript">
-
 	var current_page;
 	$(function () {
 		to_PageWithJson(1)
@@ -394,6 +393,9 @@
 						validata_form($("#input_t_email"),"error",result.extend.error_map.t_email);
 					}
 				}
+			},
+			error: function () {
+				validata_form($("#input_t_no"),"error","工号重复，请确认后再添加！");
 			}
 		}); 
 	});

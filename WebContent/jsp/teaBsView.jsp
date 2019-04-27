@@ -87,12 +87,12 @@
       	<table class="table table-hover table-striped table-bordered">
    			<thead>
    				<tr>
-   					<th style="text-align: center">学号</th>
-   					<th style="text-align: center">姓名</th>
-   					<th style="text-align: center">提交次数</th>
-   					<th style="text-align: center">最高分</th>
-   					<th style="text-align: center">最低分</th>
-   					<th style="text-align: center">总评分</th>
+   					<th>学号</th>
+   					<th>姓名</th>
+   					<th>提交次数</th>
+   					<th>最高分</th>
+   					<th>最低分</th>
+   					<th>总评分</th>
    				</tr>
    			</thead>
    			<tbody id="tbody2">
@@ -100,7 +100,8 @@
 	    </table>
       </div>
       <div class="modal-footer">
-      	 <button type="submit" class="btn btn-info" id="excel_export" >导出为excel</button>
+      	 <button type="submit" class="btn btn-info" id="excel_export" >
+      	 	<span class="glyphicon glyphicon-export"></span>导出为excel</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
       </div>
     </div>
@@ -110,8 +111,9 @@
 	<div class="container-fluid" style="height: 75%">
     	<div class="col-md-12" style="margin-top: 20px">
     		<ul class="nav nav-pills">
+    			<li><img src="../image/stu_logo.png" />
     			<li>
-    				<h4 style="color: #00CCFF;" id="title"></h4>
+    				<h3 style="color: #00CCFF;" id="title"></h3>
     			</li>
     			<li class="dropdown pull-right">
 	                <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_tea"><strong class="caret"></strong></a>
@@ -130,25 +132,27 @@
     	<div class="row-fluid">
 	    	<div style="margin-bottom: 30px">
 	    		<div class="col-md-12">
-	    			<div class="col-md-9">
+	    			<div class="col-md-8">
 	    				<h4>已发布作业</h4>
 	    			</div>
-	    			<div class="col-md-3">
+	    			<div class="col-md-4">
 	    				 <button class="btn btn-success" id="btn_hw_pub">
 			              	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布新作业
 			            </button>
 			            <button class="btn btn-info" style="margin-left: 20px" id="cal_score">统计分数</button>
+	    				 <button type="button" class="btn btn-warning" style="margin-left: 20px" id="into_chat">
+        					<span class="glyphicon glyphicon-log-in"></span> 本课程讨论区</button>
 	    			</div>
 	    		</div>
 	    		<table class="table table-hover table-striped table-bordered">
 	    			<thead>
 	    				<tr>
-	    					<th style="text-align: center;width: 150px">作业名称</th>
-	    					<th style="text-align: center;width: 150px">作业权重</th>
-	    					<th style="text-align: center;width: 150px">作业发布日期</th>
-	    					<th style="text-align: center;width: 150px">作业截止日期</th>
-	    					<th style="text-align: center;width: 150px">作业附件</th>
-	    					<th style="text-align: center;width: 150px">作业状态</th>
+	    					<th style="width: 150px">作业名称</th>
+	    					<th style="width: 150px">作业权重</th>
+	    					<th style="width: 150px">作业发布日期</th>
+	    					<th style="width: 150px">作业截止日期</th>
+	    					<th style="width: 150px">作业附件</th>
+	    					<th style="width: 150px">作业状态</th>
 	    				</tr>
 	    			</thead>
 	    			<tbody id="tbody">
@@ -164,7 +168,7 @@
 		    	</div>
 	    </div>
     </div>
-    <div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 15%">
+    <div class="footer navbar-fixed-bottom" id="footer" style="background-color: #adbfff;height: 10%">
 	   <div style="margin-top: 78px">
 			<h4 style="text-align: center">©2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们：6654331</h4>
 		</div>
@@ -352,6 +356,10 @@
 		
 		  $("#excel_export").click(function () {
 			  window.location.href="/MY_EMS/hs/downloadScore.do";
-		});  
+		});
+		  
+		  $("#into_chat").click(function () {
+				window.open('/MY_EMS/zt/viewZt.do?bc_idx='+bc_idx);
+			});
 </script>
 </html>

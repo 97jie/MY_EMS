@@ -2,6 +2,7 @@ package ems.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +12,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,10 +64,13 @@ public class HSController {
 	@RequestMapping("pubHs")
 	@ResponseBody
 	public Msg pubHs(HwStudent hwStudent,HttpSession session,MultipartFile file) {
+		if(file==null) {
+			return Msg.fail();
+		}
 		String path="";
 		if(!file.isEmpty()) {
 			String fileName=file.getOriginalFilename();
-			path=session.getServletContext().getRealPath("/")+"teacher_folder/"+
+			path=session.getServletContext().getRealPath("/")+"stu_folder/"+
 					new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+"_"+fileName;
 			try {
 				file.transferTo(new File(path));
@@ -146,6 +155,24 @@ public class HSController {
 		PageInfo<HwStudent> pageInfo=new PageInfo<>(list,5);
 		PageInfo<Student> pageInfo2=new PageInfo<>(list2,5);
 		return Msg.success().add("pageInfo", pageInfo).add("pageInfo2", pageInfo2);
+	}
+	
+	@RequestMapping("hsDownLoad.do")
+	public ResponseEntity<byte[]> htDownLoad(@RequestParam("hs_idx") Integer hs_idx) throws IOException{
+		HwStudent hwStudent=hsService.queryByIdx(hs_idx);
+		File file=new File(hwStudent.getHs_path());
+		String name=hwStudent.getHs_file_name();
+		HttpHeaders headers = new HttpHeaders();
+	    String fileName = "";
+		try {
+			fileName = new String(name.getBytes("UTF-8"), "iso-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}// 为了解决中文名称乱码问题
+       headers.setContentDispositionFormData("attachment", fileName);
+       headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+       return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+              headers, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping("calStuScore.do")

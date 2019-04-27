@@ -1,29 +1,27 @@
 package ems.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 public class ZoneTopic {
 
 	private int zt_idx;
-	private int z_idx;
 	private int zt_heat;
+	private int bc_idx;
 	private String zt_no;
+	private String zt_name;
+	@Length(min=1,max=1000,message="内容不为空且小于1000个字符！")
 	private String zt_content;
 	private String zt_pub_time;
-	@Override
-	public String toString() {
-		return "ZoneTopic [zt_idx=" + zt_idx + ", z_idx=" + z_idx + ", zt_heat=" + zt_heat + ", zt_no=" + zt_no
-				+ ", zt_content=" + zt_content + ", zt_pub_time=" + zt_pub_time + "]";
-	}
 	public int getZt_idx() {
 		return zt_idx;
 	}
 	public void setZt_idx(int zt_idx) {
 		this.zt_idx = zt_idx;
 	}
-	public int getZ_idx() {
-		return z_idx;
-	}
-	public void setZ_idx(int z_idx) {
-		this.z_idx = z_idx;
+	@Override
+	public String toString() {
+		return "ZoneTopic [zt_idx=" + zt_idx + ", zt_heat=" + zt_heat + ", bc_idx=" + bc_idx + ", zt_no=" + zt_no
+				+ ", zt_name=" + zt_name + ", zt_content=" + zt_content + ", zt_pub_time=" + zt_pub_time + "]";
 	}
 	public int getZt_heat() {
 		return zt_heat;
@@ -48,6 +46,18 @@ public class ZoneTopic {
 	}
 	public void setZt_pub_time(String zt_pub_time) {
 		this.zt_pub_time = zt_pub_time;
+	}
+	public String getZt_name() {
+		return zt_name;
+	}
+	public void setZt_name(String zt_name) {
+		this.zt_name = zt_name;
+	}
+	public int getBc_idx() {
+		return bc_idx;
+	}
+	public void setBc_idx(int bc_idx) {
+		this.bc_idx = bc_idx;
 	}
 	
 }

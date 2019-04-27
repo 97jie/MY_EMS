@@ -103,4 +103,24 @@ public class StudentController {
 		session.invalidate();
 		return "index";
 	}
+	
+	@RequestMapping(value="saveStu.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveStu(Student student,BindingResult result,HttpSession session) {
+		@Valid Student s=new Gson().fromJson((String)session.getAttribute("stu"), Student.class);
+		s.setS_pwd(student.getS_pwd());
+		s.setS_phone_num(student.getS_phone_num());
+		s.setS_email(student.getS_email());
+		if(result.hasErrors()) {
+			Map<String, Object> map=new HashMap<>();
+			List<FieldError> fieldErrors = result.getFieldErrors();
+			for(FieldError error:fieldErrors) {
+				map.put(error.getField(),error.getDefaultMessage());
+			}
+			return Msg.fail().add("error_map", map);
+		}else {
+			studentService.saveStu(s);
+			return Msg.success().add("stu", s);
+		}
+	}
 }

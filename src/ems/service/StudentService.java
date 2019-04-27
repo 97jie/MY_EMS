@@ -45,4 +45,8 @@ public class StudentService {
 	public List<Student> queryByBan(Integer b_idx){
 		return studentDao.queryByBan(b_idx);
 	}
+
+	public void saveStu(Student s) {
+		studentDao.saveStu(s);
+	}
 }

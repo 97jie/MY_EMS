@@ -1,5 +1,7 @@
 package ems.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,11 @@ public class AdminService {
 	@Autowired
 	private AdminDao adminDao;
 
-	public Long verify(Admin admin) {
+	public Admin verify(Admin admin) {
 		return adminDao.verify(admin);
+	}
+
+	public void saveA(@Valid Admin admin) {
+		adminDao.saveA(admin);
 	}
 }

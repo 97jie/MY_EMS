@@ -2,6 +2,8 @@ package ems.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,18 @@ public class BanCourseService {
 	
 	public ClassCourse queryBc(Integer bc_idx) {
 		return banCourseDao.queryBc(bc_idx);
+	}
+
+	public List<ClassCourse> queryByCidx(Integer c_idx) {
+		// TODO Auto-generated method stub
+		return banCourseDao.queryByCidx(c_idx);
+	}
+
+	public void addBc(@Valid ClassCourse bc) {
+		banCourseDao.addBc(bc);
+	}
+
+	public void delBc(String bc_idx) {
+		banCourseDao.delBc(bc_idx);
 	}
 }
