@@ -1,5 +1,6 @@
 package ems.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -28,8 +29,8 @@ public class ZtService {
 		ztDao.savaZt(zt);
 	}
 
-	public List<ZoneTopic> getWithBcIdx(String bc_idx) {
-		List<ZoneTopic> list=ztDao.getWithBcIdx(bc_idx);
+	public List<ZoneTopic> getWithBcIdx(String bc_idx, String sort) {
+		List<ZoneTopic> list=ztDao.getWithBcIdx(bc_idx,sort);
 		if(list!=null&&list.size()>0) {
 			for(ZoneTopic zt:list) {
 				getZtName(zt);

@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>作业管理系统</title>
     <link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
     <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.js" type="text/javascript"></script>

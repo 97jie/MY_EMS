@@ -21,7 +21,6 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 
 import ems.entity.Msg;
-import ems.entity.MyClass;
 import ems.entity.Teacher;
 import ems.service.TeacherService;
 
@@ -98,5 +97,26 @@ public class TeacherController {
 	public Msg getTeaByAca(String aca_idx) {
 		List<Teacher> list=teacherService.getTeaByAca(aca_idx);;
 		return Msg.success().add("data", list);
+	}
+	
+	@RequestMapping(value="saveTea.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveStu(Teacher teacher,BindingResult result,HttpSession session) {
+		@Valid Teacher t=new Gson().fromJson((String)session.getAttribute("tea"), Teacher.class);
+		t.setT_email(teacher.getT_email());
+		t.setT_pwd(teacher.getT_pwd());
+		t.setT_office(teacher.getT_office());
+		t.setT_info(teacher.getT_info());
+		if(result.hasErrors()) {
+			Map<String, Object> map=new HashMap<>();
+			List<FieldError> fieldErrors = result.getFieldErrors();
+			for(FieldError error:fieldErrors) {
+				map.put(error.getField(),error.getDefaultMessage());
+			}
+			return Msg.fail().add("error_map", map);
+		}else {
+			teacherService.saveTea(t);
+			return Msg.success().add("tea", t);
+		}
 	}
 }

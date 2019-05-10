@@ -2,6 +2,8 @@ package ems.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,10 @@ public class TeacherService {
 	public List<Teacher> getTeaByAca(String aca_idx) {
 		// TODO Auto-generated method stub
 		return teacherDao.getTeaByAca(aca_idx);
+	}
+
+	public void saveTea(@Valid Teacher t) {
+		teacherDao.saveTea( t);
 	}
 	
 	

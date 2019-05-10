@@ -2,6 +2,8 @@ package ems.dao;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -20,4 +22,6 @@ public interface TeacherDao {
 	Teacher queryTea(Teacher teacher);
 
 	List<Teacher> getTeaByAca(String aca_idx);
+
+	void saveTea(@Valid Teacher t);
 }

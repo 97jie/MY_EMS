@@ -132,7 +132,7 @@ $(function () {
 function to_PageWithJson(pn,sorted) {
 	$.ajax({
 		url:"/MY_EMS/tr/getAllWithJson.do",
-		data:{"pn":pn,"sort":sorted,"zt_idx":zt_idx},
+		data:{"pn":pn,"sort":sorted,"zt_idx":zt_idx,"tr_no":tr_no},
 		success:function(result){
 			result=JSON.parse(result);//用parse()函数对返回的数据进行了处理，使其转换为js对象
 			buildUl(result);		  //得到数据后构建表格

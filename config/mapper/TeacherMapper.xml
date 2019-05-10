@@ -59,4 +59,16 @@
 			aca_idx=#{param1}
 		</where>
 	</select>
+	<update id="saveTea" parameterType="ems.entity.Teacher">
+		update ems_teacher
+		<set>
+			t_pwd=#{t_pwd},
+			t_email=#{t_email},
+			t_office=#{t_office},
+			t_info=#{t_info}
+		</set>
+		<where>
+			t_no=#{t_no}
+		</where>
+	</update>
 </mapper>

@@ -21,6 +21,7 @@ public class Teacher {
 	@NotEmpty(message="教师邮箱不能为空！")
 	@Email(message="邮箱格式不正确！")
 	private String t_email;
+	@NotEmpty(message="不能为空！")
 	private String t_office;
 	@NotEmpty(message="教师信息不能为空！")
 	private String t_info;

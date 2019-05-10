@@ -23,7 +23,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 
-import ems.entity.Academic;
 import ems.entity.Msg;
 import ems.entity.Student;
 import ems.entity.Teacher;
@@ -63,22 +62,7 @@ public class ZtController {
 			@RequestParam(value="sort",defaultValue="1")String sort,
 			String bc_idx) {
 		PageHelper.startPage(pn, 5);//从pn页开始查询，每页有5条数据
-		List<ZoneTopic> list=ztService.getWithBcIdx(bc_idx);
-		if(list!=null&&list.size()>0) {
-			Comparator<ZoneTopic> c=new Comparator<ZoneTopic>() {
-				@Override
-				public int compare(ZoneTopic o1, ZoneTopic o2) {
-					if("1".equals(sort)) {
-						return o2.getZt_pub_time().compareTo(o1.getZt_pub_time());
-					}else if("2".equals(sort)) {
-						return o2.getZt_heat()-o1.getZt_heat();
-					}else {
-						return o1.getZt_no().compareTo(o2.getZt_no());
-					}
-				}
-			};
-			list.sort(c);
-		}
+		List<ZoneTopic> list=ztService.getWithBcIdx(bc_idx,sort);
 		PageInfo<ZoneTopic> pageInfo=new PageInfo<>(list,5);//使用pageInfo包装查询结果,连续显示5页
 		
 		return Msg.success().add("pageInfo", pageInfo);

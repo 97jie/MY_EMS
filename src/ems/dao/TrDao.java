@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.ibatis.annotations.Param;
+
 import ems.entity.TopicReply;
 
 public interface TrDao {
 
-	List<TopicReply> getAll(String zt_idx);
+	List<TopicReply> getAll(String zt_idx,@Param(value = "sort") String sort);
 
 	void savaTr(@Valid TopicReply tr);
 

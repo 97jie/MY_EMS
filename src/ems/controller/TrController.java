@@ -1,7 +1,6 @@
 package ems.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,24 +39,9 @@ public class TrController {
 	@ResponseBody
 	public Msg getAllWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn,
 			@RequestParam(value="sort",defaultValue="1")String sort,
-			String zt_idx,Model model) {
+			String zt_idx,Model model,Integer tr_no) {
 		PageHelper.startPage(pn, 8);//从pn页开始查询，每页有8条数据
-		List<TopicReply> list=trService.getAll(zt_idx);
-		if(list!=null&&list.size()>0) {
-			Comparator<TopicReply> c=new Comparator<TopicReply>() {
-				@Override
-				public int compare(TopicReply o1, TopicReply o2) {
-					if("1".equals(sort)) {
-						return o2.getTr_time().compareTo(o1.getTr_time());
-					}else if("2".equals(sort)) {
-						return o2.getTr_like_num()-o1.getTr_like_num();
-					}else {
-						return o1.getTr_no().compareTo(o2.getTr_no());
-					}
-				}
-			};
-			list.sort(c);
-		}
+		List<TopicReply> list=trService.getAll(zt_idx,tr_no,sort);
 		PageInfo<TopicReply> pageInfo=new PageInfo<>(list,8);//使用pageInfo包装查询结果
 		int bc_idx = ztService.getWithKey(Integer.parseInt(zt_idx)).getBc_idx();
 		return Msg.success().add("pageInfo", pageInfo).add("bc_idx", bc_idx);

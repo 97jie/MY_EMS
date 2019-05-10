@@ -13,6 +13,15 @@
   		select * from ems_zone_topic 
   		<where>
   			BC_IDX=#{param1}
+  			<if test="sort==1 ">
+  				order by zt_pub_time desc
+  			</if>
+  			<if test="sort==2 ">
+  				order by zt_heat desc
+  			</if>
+  			<if test="sort==3 ">
+  				order by zt_no
+  			</if>
   		</where>
   	</select>
   	

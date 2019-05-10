@@ -62,9 +62,9 @@
 	  				</div>
 	  			</div>
 	  			<div class="form-group">
-	    			<label for="ht_bz_info_add" class="col-sm-3 control-label">作业备注信息信息：</label>
+	    			<label for="ht_bz_info_add" class="col-sm-3 control-label">作业备注信息：</label>
 	   				<div class="col-sm-8">
-	     				<textarea class="form-control-static" id="ht_bz_info_add" name="ht_bz_info" style="width: 360px"></textarea>
+	     				<textarea rows="4" class="form-control-static" id="ht_bz_info_add" name="ht_bz_info" style="width: 360px"></textarea>
 	  				</div>
 	  			</div>
 			</form>
@@ -119,7 +119,7 @@
 	                <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_tea"><strong class="caret"></strong></a>
 	                <ul class="dropdown-menu">
 	                    <li>
-	                        <a href="#">个人信息</a>
+	                        <a href="/MY_EMS/jsp/teaInfo.jsp">个人信息</a>
 	                    </li>
 	                    <li>
 	                        <a href="/MY_EMS/student/login_out.do">退出登录</a>

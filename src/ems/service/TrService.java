@@ -30,12 +30,12 @@ public class TrService {
 	HtDao htDao;
 	
 	
-	public List<TopicReply> getAll(String zt_idx) {
-		List<TopicReply> list=trDao.getAll(zt_idx);
+	public List<TopicReply> getAll(String zt_idx, Integer tr_no, String sort) {
+		List<TopicReply> list=trDao.getAll(zt_idx,sort);
 		if(list!=null&&list.size()>0) {
 			for(TopicReply tr:list) {
 				getTrName(tr);
-				int countNum = trLikeDao.countNum(tr.getTr_idx()+"", tr.getTr_no());
+				int countNum = trLikeDao.countNum(tr.getTr_idx()+"", tr_no+"");
 				if(countNum>0) {
 					tr.setFlag("1");//点赞过
 				}else {
@@ -47,10 +47,10 @@ public class TrService {
 	}
 	
 	void getTrName(TopicReply tr) {
-		if(tr.getTr_no().startsWith("4")) {
-			tr.setTr_name(studentDao.search(tr.getTr_no()).get(0).getS_name()+"(学生) :");
-		}else{
+		if(tr.getTr_no().startsWith("1")||tr.getTr_no().startsWith("2")) {
 			tr.setTr_name(teacherDao.searchByName(tr.getTr_no()).get(0).getT_name()+"(教师) :");
+		}else{
+			tr.setTr_name(studentDao.search(tr.getTr_no()).get(0).getS_name()+"(学生) :");
 		}
 	}
 

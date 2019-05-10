@@ -8,6 +8,15 @@
   		select * from ems_topic_reply
   		<where>
   			zt_idx=#{param1}
+  			<if test="sort==1">
+  				order by tr_time desc
+  			</if>
+  			<if test="sort==2">
+  				order by tr_like_num desc
+  			</if>
+  			<if test="sort==3">
+  				order by tr_no
+  			</if>
   		</where>
   	</select>
   	

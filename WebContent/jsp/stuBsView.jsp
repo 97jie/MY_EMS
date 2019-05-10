@@ -264,7 +264,7 @@
 					 url:"/MY_EMS/hs/pubHs.do",
 					 success : function(data) { //请求成功后处理函数。
 						 data=JSON.parse(data);
-					 	 if(data.extend.code==200){
+					 	 if(data.code==200){
 							 $("#model_hs_upload").modal("hide");
 				               alert("作业上传成功！");
 				               to_PageWithJson(current_page);

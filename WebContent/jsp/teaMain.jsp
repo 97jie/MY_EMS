@@ -83,7 +83,7 @@
 	                <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="font-size: 17px;color: #5EA287" id="dropDown_tea"><strong class="caret"></strong></a>
 	                <ul class="dropdown-menu">
 	                    <li>
-	                        <a href="#" id="view_tea">个人信息</a>
+	                        <a href="/MY_EMS/jsp/teaInfo.jsp" id="view_tea">个人信息</a>
 	                    </li>
 	                    <li>
 	                        <a href="/MY_EMS/teacher/login_out.do">退出登录</a>
